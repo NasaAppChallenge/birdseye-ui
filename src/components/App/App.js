@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Grid, Navbar, Jumbotron, Button } from 'react-bootstrap';
+import { Grid, Navbar } from 'react-bootstrap';
 import './App.css';
-
+import WorldMap from '../Map/WorldMap';
 
 class App extends Component {
   render() {
@@ -18,12 +17,10 @@ class App extends Component {
             </Navbar.Header>
           </Grid>
         </Navbar>
-        <Jumbotron>
-          <Grid>
-            <h1>Welcome</h1>
-            <p>place map here</p>
-          </Grid>
-        </Jumbotron>
+
+                <WorldMap />
+
+
       </div>
     );
   }
