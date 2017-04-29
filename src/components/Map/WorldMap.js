@@ -1,37 +1,29 @@
 import React, { Component } from 'react';
-import { Map, Marker, Popup, TileLayer, ZoomControl} from 'react-leaflet';
-import './WorldMap.css'
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      minZoom: 3,
-      maxZoom: 8,
-      startZoom: 4,
-      startPosition: [44.439, 26.096],
-      url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
     }
   }
 
   render() {
     return (
-      <Map center={this.state.startPosition}
-          zoom={this.state.startZoom}
-          zoomControl={false}
-          minZoom={this.state.minZoom}
-          maxZoom={this.state.maxZoom}>
-        <TileLayer
-          url={this.state.url}
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <ZoomControl position="bottomleft" />
-        <Marker position={[45.749, 21.227]}>
-          <Popup>
-            <span>You are here. #TIMISOARA</span>
-          </Popup>
-        </Marker>
-      </Map>
+      <ReactMapboxGl
+        style="mapbox://styles/alexmf3/cj1w59evy00262so0kefbbrhg"
+        accessToken="pk.eyJ1IjoiYWxleG1mMyIsImEiOiJjajF2OHF6NHAwMDEwMnFuenphY3o5cG13In0.awCN0YN3--_wVfp7r-xjgA"
+        containerStyle={{
+          height: "100vh",
+          width: "100vw"
+        }}>
+          <Layer
+            type="symbol"
+            id="marker"
+            layout={{ "icon-image": "marker-15" }}>
+            <Feature coordinates={[-0.481747846041145, 51.3233379650232]}/>
+          </Layer>
+      </ReactMapboxGl>
     )
   }
 }

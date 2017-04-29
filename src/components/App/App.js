@@ -18,8 +18,7 @@ class App extends Component {
           </Grid>
         </Navbar>
 
-                <WorldMap />
-
+          <WorldMap />
 
       </div>
     );
