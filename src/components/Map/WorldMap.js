@@ -1,78 +1,136 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl, Feature } from "react-mapbox-gl";
-import birds from "./birds.json";
+import ReactMapboxGl, {
+  ScaleControl,
+  ZoomControl,
+  Feature,
+  Layer,
+  Popup
+} from "react-mapbox-gl";
+import {styles} from './styles';
 
-const api_endopoints = {
-  'media': 'v1/media',
-  'observations': 'v1/observations',
-  'mappedObservations': 'v1/mapped_observations'
+import * as randomCoordinates from 'random-coordinates';
+
+import {MAPBOX_CONFIG}  from './mapConfig';
+import { ENPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
+
+function generateMockData() {
+  const seed = (idx) => ( {
+    'created': `timestamp ${Date.now()}`,
+    'subtitle': `subtitle ${idx}`,
+    'title': `title ${idx}`,
+    'coordinates': randomCoordinates.default().split(','),
+    'id': `${idx}`,
+    'type': 'point'
+  })
+  const N = 10000;
+  return Array.apply(null, {length: N}).map(Function.call, (idx) => seed(idx))
 }
-const protocol = 'https'
-const host = 'birdseye.space'
-const geojson = [
-  {
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [-77.031952, 38.913184]
-    },
-    properties: {
-      title: 'Mapbox DC',
-      description: '1714 14th St NW, Washington DC',
-      'marker-color': '#3ca0d3',
-      'marker-size': 'large',
-      'marker-symbol': 'rocket'
-    }
-  }]
+
+
 class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
       center: [ 45.7488716, 21.20867929999997 ],
-      pins: []
+      zoom: [4],
+      skip: 0,
+      pins: [],
+      pin: "",
+      popupShowLabel: true
     }
   }
 
+  //
+  // componentWillMount() {
+  //
+  // }
+
+
   fetchPins() {
-    const url = `${protocol}://${host}/${api_endopoints.mappedObservations}`
+    const url = `${PROTOCOL}://${HOST}/${ENPOINTS.mappedObservations}`
     console.log(url)
     return fetch(url)
 
   }
-  async componentDidMount() {
 
-    this.setState({pins: await this.fetchPins()})
+  showPopup(pin) {
+    this.setState({
+      center: pin.coordinates,
+      zoom: [4],
+      pin,
+    });
   }
-  render() {
+  popupChange(popupShowLabel) {
+    this.setState({ popupShowLabel });
+  }
 
-    console.log(this.state.pins)
+  async componentDidMount() {
+    this.setState({pins: generateMockData()})
+    //this.setState({pins: await this.fetchPins()})
+  }
+
+
+
+  render() {
+    const { pins, pin, popupShowLabel, zoom, center } = this.state;
     return (
       <ReactMapboxGl
-        style="mapbox://styles/mapbox/streets-v10"
-        accessToken="pk.eyJ1IjoiYWxleG1mMyIsImEiOiJjajF2OHF6NHAwMDEwMnFuenphY3o5cG13In0.awCN0YN3--_wVfp7r-xjgA"
-        center={this.state.center}
-        containerStyle={{
-          height: "100vh",
-          width: "100vw"
-        }}
-        zoom="3">
-        <ScaleControl/>
-          <GeoJSONLayer
-          // use here the URL with GeoJSON
-          // example live data: https://www.mapbox.com/mapbox-gl-js/example/live-geojson/
-            data={geojson[0]}
-            circleLayout={{ visibility: "visible" }}
-            symbolLayout={{
-              "text-field": "{place}",
-              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              "text-offset": [0, 0.6],
-              "text-anchor": "top"
-            }}
-          />
-          <ZoomControl
-            position="bottomLeft"
-          />
+        style={MAPBOX_CONFIG.style}
+        accessToken={MAPBOX_CONFIG.accessToken}
+        center={center}
+        containerStyle={styles.container}
+        zoom={zoom}>
+        <ScaleControl />
+
+        <ZoomControl
+          position="bottomLeft"
+        />
+
+        <Layer
+          type="symbol"
+          id="marker"
+          layout={{ "icon-image": "marker-15" }}>
+          {
+            pins
+              .map((pin, idx) => (
+                <Feature
+                  key={pin.id}
+                  onClick={this.showPopup.bind(this, pin)}
+                  coordinates={pin.coordinates}/>
+              ))
+          }
+        </Layer>
+        {
+            pin && (
+                <Popup
+                  key={pin.id}
+                  offset={[0, -50]}
+                  coordinates={pin.coordinates}>
+                  <div>
+                    <span style={{
+                      ...styles.popup,
+                      display: popupShowLabel ? "block" : "none"
+                    }}>
+                      {pin.title}
+                    </span>
+                    <div onClick={this.popupChange.bind(this, !popupShowLabel)}>
+                      <div style={{...styles.popupContainer}}>
+                        <div style={{...styles.photographer}}>Photographer: <span style={{...styles.phtographerName}}></span></div>
+                        <div style={{...styles.timestamp}}>Date: <span style={{...styles.timestampDate}}></span></div>
+                        <div style={{...styles.animalName}}>Name: <span style={{...styles.animal}}></span></div>
+                        
+                      </div>
+
+                      {
+                        popupShowLabel ? "Hide" : "Show"
+                      }
+                    </div>
+                  </div>
+                </Popup>
+              )
+          }
+
       </ReactMapboxGl>
     )
   }

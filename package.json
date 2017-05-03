@@ -6,6 +6,7 @@
     "bootstrap": "^3.3.7",
     "leaflet": "^1.0.3",
     "mapbox-gl": "^0.36.0",
+    "random-coordinates": "^1.0.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.10",
     "react-dom": "^15.5.4",
