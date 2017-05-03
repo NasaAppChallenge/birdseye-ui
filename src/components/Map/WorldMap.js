@@ -2,6 +2,14 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { GeoJSONLayer, ScaleControl, ZoomControl, Feature } from "react-mapbox-gl";
 import birds from "./birds.json";
+
+const api_endopoints = {
+  'media': 'v1/media',
+  'observations': 'v1/observations',
+  'mappedObservations': 'v1/mapped_observations'
+}
+const protocol = 'https'
+const host = 'birdseye.space'
 const geojson = [
   {
     type: 'Feature',
@@ -21,15 +29,24 @@ class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      center: [ 45.7488716, 21.20867929999997 ]
+      center: [ 45.7488716, 21.20867929999997 ],
+      pins: []
     }
   }
 
-  componentDidMount(){
+  fetchPins() {
+    const url = `${protocol}://${host}/${api_endopoints.mappedObservations}`
+    console.log(url)
+    return fetch(url)
 
   }
+  async componentDidMount() {
 
+    this.setState({pins: await this.fetchPins()})
+  }
   render() {
+
+    console.log(this.state.pins)
     return (
       <ReactMapboxGl
         style="mapbox://styles/mapbox/streets-v10"
