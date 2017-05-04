@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Navbar } from 'react-bootstrap';
 import './App.css';
 import WorldMap from '../Map/WorldMap';
+import Sidebar from '../Sidebar/Sidebar';
 
 class App extends Component {
   render() {
@@ -19,7 +20,7 @@ class App extends Component {
         </Navbar>
 
           <WorldMap />
-
+          <Sidebar />
       </div>
     );
   }

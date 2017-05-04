@@ -13,6 +13,7 @@ import * as randomCoordinates from 'random-coordinates';
 
 import {MAPBOX_CONFIG}  from './mapConfig';
 import { ENPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
+import './styles.css'
 
 function generateMockData() {
   const seed = (idx) => ( {
@@ -89,8 +90,7 @@ class WorldMap extends Component {
 
         <Layer
           type="symbol"
-          id="marker"
-          layout={{ "icon-image": "marker-15" }}>
+          layout={{ "icon-image": "marker-11", 'icon-size': 1.25 }}>
           {
             pins
               .map((pin, idx) => (
@@ -105,27 +105,28 @@ class WorldMap extends Component {
             pin && (
                 <Popup
                   key={pin.id}
-                  offset={[0, -50]}
-                  coordinates={pin.coordinates}>
+                  offset={[0, -20]}
+                  coordinates={pin.coordinates}
+                  anchor={'bottom'}>
                   <div>
                     <span style={{
-                      ...styles.popup,
                       display: popupShowLabel ? "block" : "none"
                     }}>
                       {pin.title}
                     </span>
-                    <div onClick={this.popupChange.bind(this, !popupShowLabel)}>
-                      <div style={{...styles.popupContainer}}>
-                        <div style={{...styles.photographer}}>Photographer: <span style={{...styles.phtographerName}}></span></div>
-                        <div style={{...styles.timestamp}}>Date: <span style={{...styles.timestampDate}}></span></div>
-                        <div style={{...styles.animalName}}>Name: <span style={{...styles.animal}}></span></div>
-                        
-                      </div>
 
-                      {
-                        popupShowLabel ? "Hide" : "Show"
-                      }
-                    </div>
+                      <div>
+                        <div className="popup-item"><span className='popup-label-photographer'>Photographer:</span> {pin.title}</div>
+                        <div className="popup-item"><span className='popup-label-date'>Date:</span> {pin.created}</div><br />
+                        <div className="popup-item"><span className='popup-label-species'>Name:</span> {pin.subtitle}</div><br />
+
+                      </div>
+                      <div onClick={this.popupChange.bind(this, !popupShowLabel)}>
+                        <div className="popup-item"><span className='popup-label-more-info'>READ INFO</span></div>
+                        {
+                          popupShowLabel ? "Hide" : "Show"
+                        }
+                      </div>
                   </div>
                 </Popup>
               )
