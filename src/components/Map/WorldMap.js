@@ -12,8 +12,8 @@ import {styles} from './styles';
 import * as randomCoordinates from 'random-coordinates';
 
 import {MAPBOX_CONFIG}  from './mapConfig';
-import { ENPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
-import './styles.css'
+import { ENDPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
+import './styles.css';
 
 function generateMockData() {
   const seed = (idx) => ( {
@@ -42,19 +42,6 @@ class WorldMap extends Component {
     }
   }
 
-  //
-  // componentWillMount() {
-  //
-  // }
-
-
-  fetchPins() {
-    const url = `${PROTOCOL}://${HOST}/${ENPOINTS.mappedObservations}`
-    console.log(url)
-    return fetch(url)
-
-  }
-
   showPopup(pin) {
     this.setState({
       center: pin.coordinates,
@@ -62,16 +49,23 @@ class WorldMap extends Component {
       pin,
     });
   }
+
   popupChange(popupShowLabel) {
     this.setState({ popupShowLabel });
   }
 
   async componentDidMount() {
+    const url = `${PROTOCOL}://${HOST}/${ENDPOINTS.mappedObservations}`
+    const result = await fetch(url, {mode: 'cors'})
+    console.log(result);
+    const pins = result.json().data
+    // debugger;
+    console.log(pins);
+    // this.setState({pins})
     this.setState({pins: generateMockData()})
-    //this.setState({pins: await this.fetchPins()})
+    // this.setState({pins: await this.fetchPins().data})
+    // this.setState({pins: []})
   }
-
-
 
   render() {
     const { pins, pin, popupShowLabel, zoom, center } = this.state;
@@ -88,19 +82,22 @@ class WorldMap extends Component {
           position="bottomLeft"
         />
 
-        <Layer
-          type="symbol"
-          layout={{ "icon-image": "marker-11", 'icon-size': 1.25 }}>
-          {
-            pins
-              .map((pin, idx) => (
-                <Feature
-                  key={pin.id}
-                  onClick={this.showPopup.bind(this, pin)}
-                  coordinates={pin.coordinates}/>
-              ))
-          }
-        </Layer>
+        { 
+          pins && (
+            <Layer
+              type="symbol"
+              layout={{ "icon-image": "marker-15" }}>
+              {
+                pins
+                  .map((pin, idx) => (
+                    <Feature
+                      key={pin.id}
+                      onClick={this.showPopup.bind(this, pin)}
+                      coordinates={pin.coordinates}/>
+                  ))
+              }
+            </Layer>)
+        }
         {
             pin && (
                 <Popup
