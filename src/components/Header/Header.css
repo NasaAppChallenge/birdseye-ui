@@ -1,0 +1,18 @@
+.navbar-header-wrapper {
+  background: #eee;
+}
+.navbar-brand-text {
+  font-weight: bold;
+}
+.navbar-brand-logo {
+  color: black;
+}
+.nav-item-link {
+  padding: 15px 15px;
+  line-height: 50px;
+  color: #000;
+}
+.nav-item-link:hover, .nav-item-link:focus, .nav-item-link:active {
+  color: #0066cc;
+  text-decoration: none;
+}

@@ -10,7 +10,6 @@ import ReactMapboxGl, {
 import {styles} from './styles';
 
 import * as randomCoordinates from 'random-coordinates';
-
 import {MAPBOX_CONFIG}  from './WorldMapConfig';
 import { ENPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
 import './WorldMap.css'

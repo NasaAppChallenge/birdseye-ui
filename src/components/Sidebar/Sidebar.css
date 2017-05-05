@@ -17,7 +17,7 @@
   transition: width 0.3s ease;
 }
 .slideLeft-active {
-  width: 300px;
+  width:30%;
 }
 .sidebar-back-button {
   top: 60px;

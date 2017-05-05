@@ -18,6 +18,8 @@ export default class Sidebar extends Component {
         <div className='sidebar-back-button'>
           <span onClick={this.closeSidebar}><i className='zmdi zmdi-long-arrow-right zmdi-hc-lg'></i></span>
         </div>
+        <div className='sidebar-photo'></div>
+        
       </div>
     )
   }
