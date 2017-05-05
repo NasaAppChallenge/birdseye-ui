@@ -1,0 +1,28 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0px;
+  height: 100vh;
+  background: #fff;
+  z-index: 99;
+
+}
+.slideLeft {
+  -webkit-transition: width 0.3s ease;
+  -moz-transition: width 0.3s ease;
+  -o-transition: width 0.3s ease;
+  -ms-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+}
+.slideLeft-active {
+  width: 300px;
+}
+.sidebar-back-button {
+  top: 60px;
+  position: absolute;
+  left: 10px;
+  color: #0066cc;
+  cursor: pointer;
+}

@@ -11,9 +11,9 @@ import {styles} from './styles';
 
 import * as randomCoordinates from 'random-coordinates';
 
-import {MAPBOX_CONFIG}  from './mapConfig';
+import {MAPBOX_CONFIG}  from './WorldMapConfig';
 import { ENPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
-import './styles.css'
+import './WorldMap.css'
 
 function generateMockData() {
   const seed = (idx) => ( {
@@ -40,12 +40,8 @@ class WorldMap extends Component {
       pin: "",
       popupShowLabel: true
     }
+    this.handlePopupClick = this.handlePopupClick.bind(this)
   }
-
-  //
-  // componentWillMount() {
-  //
-  // }
 
 
   fetchPins() {
@@ -62,8 +58,8 @@ class WorldMap extends Component {
       pin,
     });
   }
-  popupChange(popupShowLabel) {
-    this.setState({ popupShowLabel });
+  handlePopupClick() {
+    this.props.toggleSidebar(true)
   }
 
   async componentDidMount() {
@@ -90,7 +86,7 @@ class WorldMap extends Component {
 
         <Layer
           type="symbol"
-          layout={{ "icon-image": "marker-11", 'icon-size': 1.25 }}>
+          layout={{ "icon-image": "marker-15", 'icon-size': 1.25 }}>
           {
             pins
               .map((pin, idx) => (
@@ -109,23 +105,13 @@ class WorldMap extends Component {
                   coordinates={pin.coordinates}
                   anchor={'bottom'}>
                   <div>
-                    <span style={{
-                      display: popupShowLabel ? "block" : "none"
-                    }}>
-                      {pin.title}
-                    </span>
-
                       <div>
                         <div className="popup-item"><span className='popup-label-photographer'>Photographer:</span> {pin.title}</div>
                         <div className="popup-item"><span className='popup-label-date'>Date:</span> {pin.created}</div><br />
                         <div className="popup-item"><span className='popup-label-species'>Name:</span> {pin.subtitle}</div><br />
-
                       </div>
-                      <div onClick={this.popupChange.bind(this, !popupShowLabel)}>
-                        <div className="popup-item"><span className='popup-label-more-info'>READ INFO</span></div>
-                        {
-                          popupShowLabel ? "Hide" : "Show"
-                        }
+                      <div onClick={this.handlePopupClick}>
+                        <div className="popup-item"><span className='popup-label-more-info'>READ INFO <i className='zmdi zmdi-long-arrow-right zmdi-hc-lg'></i></span></div>
                       </div>
                   </div>
                 </Popup>
