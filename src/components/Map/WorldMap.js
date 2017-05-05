@@ -47,6 +47,7 @@ class WorldMap extends Component {
       center: pin.coordinates,
       zoom: [4],
       pin,
+      pins: []
     });
   }
 
@@ -56,15 +57,9 @@ class WorldMap extends Component {
 
   async componentDidMount() {
     const url = `${PROTOCOL}://${HOST}/${ENDPOINTS.mappedObservations}`
-    const result = await fetch(url, {mode: 'cors'})
-    console.log(result);
-    const pins = result.json().data
-    // debugger;
-    console.log(pins);
-    // this.setState({pins})
-    this.setState({pins: generateMockData()})
-    // this.setState({pins: await this.fetchPins().data})
-    // this.setState({pins: []})
+    var response = await fetch(url);
+    var result = await response.json();
+    this.setState({pins: result.data})
   }
 
   render() {
@@ -81,7 +76,6 @@ class WorldMap extends Component {
         <ZoomControl
           position="bottomLeft"
         />
-
         { 
           pins && (
             <Layer
