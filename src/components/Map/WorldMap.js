@@ -9,23 +9,9 @@ import ReactMapboxGl, {
 } from "react-mapbox-gl";
 import {styles} from './styles';
 
-import * as randomCoordinates from 'random-coordinates';
 import {MAPBOX_CONFIG}  from './WorldMapConfig';
 import { ENDPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
 import './WorldMap.css'
-
-function generateMockData() {
-  const seed = (idx) => ( {
-    'created': `timestamp ${Date.now()}`,
-    'subtitle': `subtitle ${idx}`,
-    'title': `title ${idx}`,
-    'coordinates': randomCoordinates.default().split(','),
-    'id': `${idx}`,
-    'type': 'point'
-  })
-  const N = 10000;
-  return Array.apply(null, {length: N}).map(Function.call, (idx) => seed(idx))
-}
 
 class WorldMap extends Component {
   constructor(props) {
@@ -43,10 +29,9 @@ class WorldMap extends Component {
 
   showPopup(pin) {
     this.setState({
-      center: pin.coordinates,
+      center: pin.geometry.coordinates,
       zoom: [4],
       pin,
-      pins: []
     });
   }
 
@@ -76,7 +61,7 @@ class WorldMap extends Component {
           position="bottomLeft"
         />
 
-        { 
+        {
           pins && (
             <Layer
               type="symbol"
@@ -87,7 +72,7 @@ class WorldMap extends Component {
                     <Feature
                       key={pin.id}
                       onClick={this.showPopup.bind(this, pin)}
-                      coordinates={pin.coordinates}/>
+                      coordinates={pin.geometry.coordinates}/>
                   ))
               }
             </Layer>
@@ -98,13 +83,13 @@ class WorldMap extends Component {
                 <Popup
                   key={pin.id}
                   offset={[0, -20]}
-                  coordinates={pin.coordinates}
+                  coordinates={pin.geometry.coordinates}
                   anchor={'bottom'}>
                   <div>
                       <div>
-                        <div className="popup-item"><span className='popup-label-photographer'>Photographer:</span> {pin.title}</div>
+                        <div className="popup-item"><span className='popup-label-photographer'>Photographer:</span> {pin.properties.login}</div>
                         <div className="popup-item"><span className='popup-label-date'>Date:</span> {pin.created}</div><br />
-                        <div className="popup-item"><span className='popup-label-species'>Name:</span> {pin.subtitle}</div><br />
+                        <div className="popup-item"><span className='popup-label-species'>Name:</span> {pin.properties.title}</div><br />
                       </div>
                       <div onClick={this.handlePopupClick}>
                         <div className="popup-item"><span className='popup-label-more-info'>READ INFO <i className='zmdi zmdi-long-arrow-right zmdi-hc-lg'></i></span></div>
