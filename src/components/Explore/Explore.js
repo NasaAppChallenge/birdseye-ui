@@ -57,6 +57,7 @@ export default class Explore extends Component {
           toggleSidebar={this.toggleSidebar}
           showPopup={this.showPopup}
           mapOptions={mapOptions}
+          layerType={this.props.location.pathname}
           />
         <Sidebar
           toggleSidebar={this.toggleSidebar}
