@@ -8,46 +8,27 @@ import ReactMapboxGl, {
   Popup
 } from "react-mapbox-gl";
 import {styles} from './styles';
-
-import {MAPBOX_CONFIG}  from './WorldMapConfig';
-import { ENDPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
 import './WorldMap.css'
+import {MAPBOX_CONFIG}  from './WorldMapConfig';
 
 class WorldMap extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      center: [ 45.7488716, 21.20867929999997 ],
-      zoom: [2],
-      skip: 0,
-      pins: [],
-      pin: "",
-      popupShowLabel: true
-    }
-    this.handlePopupClick = this.handlePopupClick.bind(this)
+    this.handlePopupClick = this.handlePopupClick.bind(this);
+    this.showPopup = this.showPopup.bind(this);
   }
 
   showPopup(pin) {
-    this.setState({
-      center: pin.geometry.coordinates,
-      zoom: [4],
-      pin,
-    });
+    this.props.showPopup(pin);
   }
 
   handlePopupClick() {
-    this.props.toggleSidebar(true)
-  }
-
-  async componentDidMount() {
-    const url = `${PROTOCOL}://${HOST}/${ENDPOINTS.mappedObservations}`
-    var response = await fetch(url);
-    var result = await response.json();
-    this.setState({pins: result.data})
+    this.props.toggleSidebar(true);
   }
 
   render() {
-    const { pins, pin, popupShowLabel, zoom, center } = this.state;
+    const { pins, pin, popupShowLabel, zoom, center } = this.props.mapOptions;
+    console.log(pins)
     return (
       <ReactMapboxGl
         style={MAPBOX_CONFIG.style}

@@ -26,3 +26,45 @@
   color: #0066cc;
   cursor: pointer;
 }
+
+.sidebar-header {
+  height: 90px;
+  position: relative;
+}
+
+.sidebar-photo {
+  padding: 5px;
+}
+
+.sidebar-details {
+  background: #ededed;
+}
+.sidebar-heading {
+  font-size: 18px;
+  padding: 15px 10px 5px 10px;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #333;
+}
+.sidebar-description {
+  height: 20%;
+}
+.sidebar-description p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 10px;
+}
+.sidebar-text {
+  background: #ededed;
+}
+.sidebar-text-details {
+  font-weight: bold;
+  color: #333;
+  list-style-type: none;
+  padding: 0;
+  padding-bottom: 10px;
+}
+.sidebar-text-details li {
+  padding-top: 10px;
+  padding-left: 10px;
+}
