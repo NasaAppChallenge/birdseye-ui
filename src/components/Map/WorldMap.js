@@ -6,22 +6,20 @@ import ReactMapboxGl, {
 } from "react-mapbox-gl";
 import {styles} from './styles';
 import './WorldMap.css'
-import {MAPBOX_CONFIG}  from './WorldMapConfig';
 import ExploreLayer from './Layers/ExploreLayer';
 import VisualizeLayer from './Layers/VisualizeLayer';
 
 class WorldMap extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
     const { zoom, center } = this.props.mapOptions;
+    const { mapStyle , mapToken } = this.props.mapConfig;
+    
     let layer = null;
 
-    console.log(this.props.layerType)
-    console.log(this.props.layerType === 1)
     if (this.props.layerType === '/explore') {
       layer = <ExploreLayer layerOptions={this.props.mapOptions}
                     showPopup={this.props.showPopup}
@@ -31,8 +29,8 @@ class WorldMap extends Component {
     }
     return (
       <ReactMapboxGl
-        style={MAPBOX_CONFIG.style}
-        accessToken={MAPBOX_CONFIG.accessToken}
+        style={mapStyle}
+        accessToken={mapToken}
         center={center}
         containerStyle={styles.container}
         zoom={zoom}>

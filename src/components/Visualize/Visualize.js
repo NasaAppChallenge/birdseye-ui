@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import WorldMap from '../Map/WorldMap';
 import Sidebar from '../Sidebar/Sidebar';
 
-
 import { ENDPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
+import {MAPBOX_CONFIG}  from '../Map/WorldMapConfig';
 
 export default class Visualize extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      center: [ 45.7488716, 21.20867929999997 ],
-      zoom: [2],
+      center: [ -122.4194, 37.7749],
+      zoom: [8],
       skip: 0,
       pins: []
     }
@@ -29,10 +29,12 @@ export default class Visualize extends Component {
       zoom,
       center
     }
+    
     return(
       <div>
         <WorldMap
           mapOptions={mapOptions}
+          mapConfig={MAPBOX_CONFIG.visualize}
           />
       </div>
     )

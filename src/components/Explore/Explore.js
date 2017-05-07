@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import WorldMap from '../Map/WorldMap';
 import Sidebar from '../Sidebar/Sidebar';
 
-
 import { ENDPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
+import {MAPBOX_CONFIG}  from '../Map/WorldMapConfig';
 
 export default class Explore extends Component {
   constructor(props) {
@@ -58,6 +58,7 @@ export default class Explore extends Component {
           showPopup={this.showPopup}
           mapOptions={mapOptions}
           layerType={this.props.location.pathname}
+          mapConfig={MAPBOX_CONFIG.explore}
           />
         <Sidebar
           toggleSidebar={this.toggleSidebar}
