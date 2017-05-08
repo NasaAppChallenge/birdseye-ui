@@ -20,8 +20,8 @@ export default class ExploreLayer extends Component {
   }
 
   render(){
-    const { pins, pin, popupShowLabel, zoom, center } = this.props.layerOptions;
-    
+    const { pins, pin } = this.props.layerOptions;
+
     return(
       <div>
         {

@@ -3,8 +3,7 @@ import {
   Layer,
   Source,
 } from "react-mapbox-gl";
-import ReactDOM from 'react-dom';
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 import quakes from './eathquakes.json';
@@ -67,8 +66,6 @@ export default class ExploreLayer extends Component {
   }
 
   render(){
-    //for later use
-    const { pins, zoom, center } = this.props.layerOptions;
 
     const layers = [
         [0, 'green'],

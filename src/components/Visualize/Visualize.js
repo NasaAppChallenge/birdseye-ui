@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import WorldMap from '../Map/WorldMap';
-import Sidebar from '../Sidebar/Sidebar';
 
 import { ENDPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
 import {MAPBOX_CONFIG}  from '../Map/WorldMapConfig';

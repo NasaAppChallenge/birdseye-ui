@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router';
-import { Grid, Navbar } from 'react-bootstrap';
+import { Grid, Navbar, NavItem, Nav} from 'react-bootstrap';
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import './Header.css';
 
 const Header = (props)  => (
@@ -12,13 +12,21 @@ const Header = (props)  => (
                 </Navbar.Brand>
               </Navbar.Header>
 
-              <div className='pull-right'>
-                <Link className='nav-item-link' to='/explore'>EXPLORE</Link>
-                <Link className='nav-item-link' to='/visualize'>VISUALIZE</Link>
-              </div>
+              <Nav pullRight>
+                <IndexLinkContainer  to='/'>
+                    <NavItem eventKey={1}>HOME</NavItem>
+                </IndexLinkContainer>
+                <LinkContainer  to='/explore'>
+                    <NavItem eventKey={2}>EXPLORE</NavItem>
+                </LinkContainer>
+                <LinkContainer  to='/visualize'>
+                    <NavItem eventKey={3}>VISUALIZE</NavItem>
+                </LinkContainer>
+              </Nav>
 
             </Grid>
           </Navbar>
 );
-
+// className='nav-item-link'
+// className='nav-item-link'
 export default Header;
