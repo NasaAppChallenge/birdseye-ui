@@ -9,12 +9,31 @@ import 'rc-slider/assets/index.css';
 
 import quakes from './eathquakes.json';
 
+quakes.features = quakes.features.map(
+  (d) => {
+    d.properties.month = new Date(d.properties.time).getMonth();
+    return d
+  }
+)
+
 const styles = {
   'rcslider': {
-    'top': '20px',
-    'zIndex': 999999,
+    'top': '50px',
+    'zIndex': 10001,
     'maxWidth': '300px',
-    'margin': '0 auto'
+    'margin': '0 auto',
+  },
+  'slider': {
+    background: '#f8f8f8',
+    position: 'absolute',
+    zIndex: 10000,
+    width: '350px',
+    height: '20px',
+    left: '50%',
+    marginLeft: '-175px',
+    borderBottomLeftRadius: '30px',
+    borderBottomRightRadius: '30px',
+    top: '50px'
   }
 }
 
@@ -37,7 +56,7 @@ export default class ExploreLayer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      filter: ['==', 'month', months[0]],
+      filter: ['==', 'month', 0],
       value: 0
     }
     this.onSliderChange = this.onSliderChange.bind(this);
@@ -45,13 +64,6 @@ export default class ExploreLayer extends Component {
 
   onSliderChange(value) {
     this.setState({filter: ['==', 'month', value], value: value});
-    console.log(value)
-  }
-  componentDidMount() {
-    document.getElementById('slider').addEventListener('input', function(e) {
-         var month = parseInt(e.target.value, 10);
-         this.filterBy(month);
-     });
   }
 
   render(){
@@ -60,22 +72,21 @@ export default class ExploreLayer extends Component {
 
     const layers = [
         [0, 'green'],
-        [20, 'orange'],
-        [200, 'red']
+        [2, 'orange'],
+        [4, 'red']
     ];
-
 
     return(
       <div>
-      <div id='slider'></div>
+      <div id='slider' style={styles.slider}></div>
         <Source
           id="quakes"
           geoJsonSource={{
             type: 'geojson',
             data: quakes,
             cluster: true,
-            clusterMaxZoom: 15,
-            clusterRadius: 20
+            clusterMaxZoom: 20,
+            clusterRadius: 1
           }}
         />
         {
@@ -92,10 +103,15 @@ export default class ExploreLayer extends Component {
               }}
               layerOptions={{
                 "filter": i === layers.length - 1 ?
-                      [">=", "point_count", layer[0]] :
-                    ["all",
+                      ["all",
                         [">=", "point_count", layer[0]],
-                        ["<", "point_count", layers[i + 1][0]]]
+                        this.state.filter
+                      ] :
+                      ["all",
+                          this.state.filter,
+                          [">=", "point_count", layer[0]],
+                          ["<", "point_count", layers[i + 1][0]]
+                      ]
               }}>
             </Layer>
           ))
@@ -111,7 +127,10 @@ export default class ExploreLayer extends Component {
             "circle-blur": 1
           }}
           layerOptions={{
-            "filter": ["!=", "cluster", true]
+            "filter": ["all",
+                        this.state.filter,
+                        ["!=", "cluster", true]
+                      ]
           }}>
         </Layer>
         <Slider style={styles.rcslider}
