@@ -9,6 +9,7 @@ import './WorldMap.css'
 import ExploreLayer from './Layers/ExploreLayer';
 import VisualizeLayer from './Layers/VisualizeLayer';
 
+
 class WorldMap extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,7 @@ class WorldMap extends Component {
   render() {
     const { zoom, center } = this.props.mapOptions;
     const { mapStyle , mapToken } = this.props.mapConfig;
-    
+
     let layer = null;
 
     if (this.props.layerType === '/explore') {
@@ -33,8 +34,12 @@ class WorldMap extends Component {
         accessToken={mapToken}
         center={center}
         containerStyle={styles.container}
-        zoom={zoom}>
-        <ScaleControl />
+        zoom={zoom}
+        dragRotate={false}
+        maxZoom={10}
+        minZoom={2}>
+        <ScaleControl
+        />
 
         <ZoomControl
           position="bottomLeft"

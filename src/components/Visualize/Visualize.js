@@ -10,7 +10,7 @@ export default class Visualize extends Component {
     super(props);
     this.state = {
       center: [ -122.4194, 37.7749],
-      zoom: [8],
+      zoom: [4],
       skip: 0,
       pins: []
     }
@@ -29,7 +29,7 @@ export default class Visualize extends Component {
       zoom,
       center
     }
-    
+
     return(
       <div>
         <WorldMap
