@@ -17,7 +17,7 @@ quakes.features = quakes.features.map(
 
 const styles = {
   'rcslider': {
-    'top': '50px',
+    'top': '53px',
     'zIndex': 10001,
     'maxWidth': '300px',
     'margin': '0 auto',
