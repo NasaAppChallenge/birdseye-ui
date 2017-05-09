@@ -5,6 +5,9 @@ import Sidebar from '../Sidebar/Sidebar';
 import { ENDPOINTS, PROTOCOL, HOST } from '../../services/apiConfig';
 import {MAPBOX_CONFIG}  from '../Map/WorldMapConfig';
 
+import PubNub from 'pubnub';
+const subscribe_key = 'sub-c-9a2340a0-2c10-11e7-9a1a-0619f8945a4f';
+
 export default class Explore extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,19 @@ export default class Explore extends Component {
     }
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.showPopup = this.showPopup.bind(this);
+  }
+
+  componentDidMount() {
+    let pubnub = new PubNub({
+            subscribeKey: subscribe_key,
+            ssl: (location.protocol.toLowerCase() === 'https:')
+        })
+    pubnub.subscribe({
+        channel: 'Observations',
+        message: (message) => this.setState({
+          pins: this.state.pins.push(message)
+        }),
+      });
   }
 
   async componentDidMount() {

@@ -9,7 +9,6 @@ import './WorldMap.css'
 import ExploreLayer from './Layers/ExploreLayer';
 import VisualizeLayer from './Layers/VisualizeLayer';
 
-
 class WorldMap extends Component {
   constructor(props) {
     super(props);
