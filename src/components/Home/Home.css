@@ -11,26 +11,60 @@
 .logos {
   padding-right: 30px;
 }
-.hero-text {
+.logos img {
+  display: inline-block;
+}
+.hero-text,
+.nativeApp-text {
   position: relative;
   color: white;
   width: 500px;
 }
-.mapBg {
+.nativeApp-text {
+  padding-top: 150px;
+}
+.nativeApp-text h2:nth-child(1) {
+  margin-bottom: 0;
+}
+.nativeApp-text h2:nth-child(2) {
+  margin-top: 0;
+}
+.nativeApp .btn-native,
+.nativeApp .btn-native:focus,
+.nativeApp .btn-native:hover,
+.nativeApp .btn-native:active,
+.mapRow .btn-map,
+.mapRow .btn-map:focus,
+.mapRow .btn-map:hover,
+.mapRow .btn-map:active {
+  border-radius: 0;
+  width: 150px;
   background-color: #0f69c9;
-  height: 500px;
+  color: white;
+  background-image: none;
+  border: none;
 }
-.mapBg-img {
-  background: url('./web-bg.png') no-repeat center;
-  height: auto;
-  width: 100%;
+.mapRow .btn-map,
+.mapRow .btn-map:focus,
+.mapRow .btn-map:hover,
+.mapRow .btn-map:active {
+  background-color: #fff;
+  color: #333;
+}
+.mapBg, .nativeApp {
+  background-color: #0f69c9;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+.mapRow {
+  background-color: #0f69c9;
+}
 
 
-}
-section {
+.nativeApp section {
   width: 100%;
 }
-section:first-child { padding-top: 40px; }
+.nativeApp section:first-child { padding-top: 40px; }
 @media screen and (max-width: 768px) {
-    section:first-child { padding-top: 180px; }
+    .nativeApp section:first-child { padding-top: 180px; }
 }
