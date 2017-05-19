@@ -2,13 +2,14 @@ import React from 'react';
 import { Grid, Navbar, NavItem, Nav} from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import './Header.css';
+import logo from './birdseye-logo.svg';
 
 const Header = (props)  => (
-          <Navbar fixedTop  className='navbar-header-wrapper'>
-            <Grid>
+          <Navbar fixedTop fluid className='navbar-header-wrapper'>
+            <Grid fluid>
               <Navbar.Header>
                 <Navbar.Brand className='navbar-brand-logo'>
-                  <a href="/"><span className='navbar-brand-text'>BIRDS</span>EYE</a>
+                  <a href="/"><img src={logo} alt='logo' /></a>
                 </Navbar.Brand>
               </Navbar.Header>
 

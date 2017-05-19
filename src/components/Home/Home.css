@@ -1,0 +1,36 @@
+.footer-text {
+  font-weight: bold;
+}
+.copyright {
+  display: inline-block;
+  margin-top: 35px;
+}
+.copyright li {
+  list-style-type: none;
+}
+.logos {
+  padding-right: 30px;
+}
+.hero-text {
+  position: relative;
+  color: white;
+  width: 500px;
+}
+.mapBg {
+  background-color: #0f69c9;
+  height: 500px;
+}
+.mapBg-img {
+  background: url('./web-bg.png') no-repeat center;
+  height: auto;
+  width: 100%;
+
+
+}
+section {
+  width: 100%;
+}
+section:first-child { padding-top: 40px; }
+@media screen and (max-width: 768px) {
+    section:first-child { padding-top: 180px; }
+}

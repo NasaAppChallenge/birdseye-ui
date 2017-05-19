@@ -4,6 +4,9 @@
 .navbar-brand-text {
   font-weight: bold;
 }
+.navbar-brand-logo.navbar-brand {
+  padding: 0;
+}
 .navbar-brand-logo {
   color: black;
 }

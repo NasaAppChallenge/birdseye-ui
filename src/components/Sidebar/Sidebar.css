@@ -7,7 +7,7 @@
   height: 100vh;
   background: #fff;
   z-index: 99;
-
+  display: none;
 }
 .slideLeft {
   -webkit-transition: width 0.3s ease;
@@ -17,6 +17,7 @@
   transition: width 0.3s ease;
 }
 .slideLeft-active {
+  display: block;
   width:30%;
 }
 .sidebar-back-button {
