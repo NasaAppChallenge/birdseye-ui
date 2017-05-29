@@ -14,14 +14,23 @@
 .logos img {
   display: inline-block;
 }
+.nativeAppImg {
+  width: 100%;
+  height: auto;
+}
 .hero-text,
 .nativeApp-text {
   position: relative;
   color: white;
   width: 500px;
+  margin-left: 10%;
 }
 .nativeApp-text {
   padding-top: 150px;
+  position: absolute;
+  top: 10%;
+  right: 5%;
+
 }
 .nativeApp-text h2:nth-child(1) {
   margin-bottom: 0;

@@ -2,6 +2,7 @@ import React from 'react';
 import './Home.css';
 import heroBg from './hero-bg.png';
 import webBg from './web-bg.png';
+import bird from './bird.jpg';
 import birdseyeLogo from './birdseye-logo-bw.png';
 import nasaLogo from './nasa-logo.png';
 
@@ -10,14 +11,11 @@ import { Image, Grid, Row, Col, Button } from 'react-bootstrap';
 const Home = (props)  => (
         <Grid fluid>
           <Row className='nativeApp'>
-            <Col md={6}>
+          <Image className='nativeAppImg' src={heroBg} responsive/>
+
+            <Col className='nativeApp-text'>
               <section>
-                <Image src={heroBg} />
-              </section>
-            </Col>
-            <Col md={6}>
-              <section>
-                <div className='nativeApp-text'>
+                <div >
                   <h2>Saving endangered species.</h2>
                   <h2>Together</h2>
                   <br />
@@ -36,7 +34,7 @@ const Home = (props)  => (
                   <br />
                 </div>
                 <Row>
-                  <Col md={3}>
+                  <Col md={4}>
                     <Button href="/#/" className='btn-native'>IPHONE</Button>
                   </Col>
                   <Col md={3}>
@@ -48,8 +46,8 @@ const Home = (props)  => (
           </Row>
           <Row className='mapRow'>
             <Col md={6} className='mapBg'>
-              <section>
-              <div className='hero-text'>
+              <section className='hero-text'>
+              <div >
                 <h2>Migratory travels and travel stories</h2>
                 <br />
                 <p>
